@@ -1,0 +1,25 @@
+[Unit]
+Description=LlamaCPP Exporter Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=1000
+Group=1000
+TimeoutStartSec=0
+Restart=always
+Environment="DOCKER_IMG=llamacpp-exporter"
+Environment="LLAMACPP_BASE_URL=http://localhost:8000"
+Environment="SERVER_PORT=8001"
+ExecStart=/usr/bin/docker run --rm --name %n \
+    --network host \
+    --memory=100m \
+    --cpus=0.25 \
+    -e TZ=Europe/Rome \
+    -e LLAMACPP_BASE_URL=${LLAMACPP_BASE_URL} \
+    -e SERVER_PORT=${SERVER_PORT} \
+    $DOCKER_IMG
+ExecStop=-/usr/bin/docker stop -t 5 %n
+
+[Install]
+WantedBy=multi-user.target

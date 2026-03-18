@@ -74,6 +74,33 @@ The exporter exposes all metrics from the llama.cpp server with an additional `m
 | `run` | Run the Docker container |
 | `package` | Package the Docker image as a tar.gz file |
 
+## Systemd Service
+
+A systemd service file is provided for production deployment:
+
+```bash
+# Copy the service file
+sudo cp llamacpp-exporter.service /etc/systemd/system/
+
+# Reload systemd
+sudo systemctl daemon-reload
+
+# Enable the service
+sudo systemctl enable llamacpp-exporter.service
+
+# Start the service
+sudo systemctl start llamacpp-exporter.service
+
+# Check status
+sudo systemctl status llamacpp-exporter.service
+```
+
+The service file includes:
+- Automatic restart on failure
+- Resource limits (100MB memory, 0.25 CPU)
+- Docker container management
+- Environment variable configuration
+
 ## Docker Usage
 
 ### Build
@@ -94,7 +121,3 @@ make package
 ## Development
 
 The exporter only processes models that are in the "loaded" state (`status.value == "loaded"`). This ensures efficient resource usage by not attempting to fetch metrics from models that aren't ready.
-
-## License
-
-MIT
