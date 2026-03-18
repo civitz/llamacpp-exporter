@@ -1,0 +1,38 @@
+# .dockerignore
+
+# Ignore virtual environment
+.venv/
+.venvnuc/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore build artifacts
+build/
+main.spec
+
+# Ignore git files
+git/
+.git/
+.gitignore
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore test files
+*test*.py
+
+# Ignore coverage files
+coverage/
+*.cover
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore Makefile artifacts
+llamacpp-exporter.tar.gz
