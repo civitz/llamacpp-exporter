@@ -134,7 +134,12 @@ def update_metrics():
                     if metric_type == "gauge":
                         metric.labels(**labels).set(sample.value)
                     elif metric_type == "counter":
-                        metric.labels(**labels).inc(sample.value)
+                         # To "copy" counter values exactly, we need to reset and then set
+                         # Get the current counter object
+                         counter = metric.labels(**labels)
+                         # Reset by setting internal value to 0, then increment by observed value
+                         counter._value.set(0)
+                         counter.inc(sample.value)
                     elif metric_type == "summary":
                         metric.labels(**labels).observe(sample.value)
                     elif metric_type == "histogram":
