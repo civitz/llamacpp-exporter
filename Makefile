@@ -5,7 +5,7 @@
 all: build
 
 build:
-	docker build -t llamacpp-exporter:latest .
+	docker build --pull --no-cache -t llamacpp-exporter:latest .
 
 clean:
 	rm -f llamacpp-exporter.tar.gz

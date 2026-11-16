@@ -5,6 +5,9 @@ FROM python:3-alpine
 # Set working directory
 WORKDIR /app
 
+# Upgrade OS packages to pick up security fixes not yet in the base image
+RUN apk upgrade --no-cache
+
 # Install runtime dependencies
 RUN pip install --no-cache-dir requests prometheus-client
 
